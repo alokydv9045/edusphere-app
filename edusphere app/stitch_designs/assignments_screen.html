@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EduSphere - Assignments</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#434655",
+                        "outline-variant": "#c3c6d7",
+                        "secondary": "#6b38d4",
+                        "inverse-surface": "#2e3039",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-highest": "#e1e2ed",
+                        "surface-variant": "#e1e2ed",
+                        "tertiary": "#943700",
+                        "primary": "#004ac6",
+                        "surface-container-high": "#e7e7f3",
+                        "background": "#faf8ff",
+                        "on-background": "#191b23",
+                        "tertiary-container": "#bc4800",
+                        "surface-dim": "#d9d9e5",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dbe1ff",
+                        "outline": "#737686",
+                        "on-secondary-fixed": "#23005c",
+                        "surface-container-low": "#f3f3fe",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary-fixed": "#360f00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f0fb",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#0053db",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-container": "#fffbff",
+                        "tertiary-fixed": "#ffdbcd",
+                        "on-primary-fixed": "#00174b",
+                        "secondary-fixed-dim": "#d0bcff",
+                        "on-secondary-fixed-variant": "#5516be",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface": "#faf8ff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "primary-container": "#2563eb",
+                        "surface-container": "#ededf9",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "on-tertiary-container": "#ffede6",
+                        "secondary-container": "#8455ef",
+                        "on-surface": "#191b23",
+                        "on-primary-container": "#eeefff",
+                        "secondary-fixed": "#e9ddff",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "sm": "8px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "h1": ["Inter"],
+                        "display": ["Inter"],
+                        "subhead": ["Inter"],
+                        "h3": ["Inter"],
+                        "callout": ["Inter"],
+                        "caption": ["Inter"],
+                        "h2": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "footnote": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["15px", {"lineHeight": "20px", "letterSpacing": "-0.2px", "fontWeight": "400"}],
+                        "h1": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.4px", "fontWeight": "700"}],
+                        "display": ["34px", {"lineHeight": "41px", "letterSpacing": "-0.4px", "fontWeight": "700"}],
+                        "subhead": ["15px", {"lineHeight": "20px", "letterSpacing": "-0.2px", "fontWeight": "500"}],
+                        "h3": ["20px", {"lineHeight": "25px", "letterSpacing": "-0.4px", "fontWeight": "600"}],
+                        "callout": ["16px", {"lineHeight": "21px", "letterSpacing": "-0.3px", "fontWeight": "600"}],
+                        "caption": ["12px", {"lineHeight": "16px", "letterSpacing": "0px", "fontWeight": "500"}],
+                        "h2": ["22px", {"lineHeight": "28px", "letterSpacing": "-0.4px", "fontWeight": "600"}],
+                        "body-lg": ["17px", {"lineHeight": "22px", "letterSpacing": "-0.4px", "fontWeight": "400"}],
+                        "footnote": ["13px", {"lineHeight": "18px", "letterSpacing": "0px", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "13px", "letterSpacing": "0.06em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- Top AppBar -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-5 h-16 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-[0_2px_4px_rgba(37,99,235,0.04)]">
+<div class="flex items-center gap-3">
+<button class="active:scale-95 duration-200 text-primary">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</button>
+<h1 class="font-['Inter'] text-lg font-semibold tracking-tight text-blue-600">Assignments</h1>
+</div>
+<div class="flex items-center gap-4">
+<img class="w-8 h-8 rounded-full border-2 border-primary-container object-cover" data-alt="A professional close-up headshot of a friendly female teacher in her late 30s with a warm smile, set against a blurred academic background with soft bokeh lighting. The style is modern, high-definition, and corporate-friendly with a clear focus on the subject and a professional, light-mode aesthetic that fits perfectly into a sleek educational dashboard." src="https://lh3.googleusercontent.com/aida/ADBb0ujx4kyneScJWZnyO1Y0sLOZFFVKvOa7AfKhyF9QIdFmdoSI5q6WG4GkOKqQVS5qfHhAc4cnRMHbgqjDy-BEtD2imjBFub52g4FFhxNCFZ5Nx1eYC2kZrOpEC0sontWGvCaih79b-iu0oEeuhY7dld01MNA0uin5lmYp1jYOcita1gMaVuDh5524L9r0yF2wLcFpWfTq9woQnIodRq5wrMjGPomGzJo9DXUJSDN9_Csof4brqSwATwbnFhVnodl6MjG7bK76n6eQOD8"/>
+<button class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="pt-24 px-5 max-w-4xl mx-auto space-y-6">
+<!-- Welcome Hero / Stats (Bento Style) -->
+<!-- Tab System -->
+<!-- Assignments List -->
+<section class="space-y-4">
+<!-- Assignment Card 1 -->
+<div class="glass-card p-5 rounded-[32px] border border-white shadow-[0_8px_20px_rgba(37,99,235,0.06)] relative overflow-hidden transition-all hover:shadow-md">
+<div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-orange-400 to-orange-200"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-orange-50 text-orange-600 rounded-full text-[10px] font-bold tracking-wider uppercase">Mathematics</span>
+<span class="text-caption font-caption text-outline">Grade 10-A</span>
+</div>
+<h3 class="text-callout font-callout text-on-background mt-1">Introduction to Quadratic Equations</h3>
+</div>
+<button class="text-outline hover:text-primary"><div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-lg hover:bg-surface-variant transition-colors">
+<span class="text-[12px] font-bold uppercase tracking-tight">Manage</span>
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</div></button>
+</div>
+<div class="flex items-center gap-4 text-footnote font-footnote text-on-surface-variant mb-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Due: Oct 24, 2023</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end text-caption font-caption">
+<span class="text-on-surface-variant font-medium">18 / 30 Submitted</span>
+<span class="text-primary font-bold">60%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full w-[60%]"></div>
+</div>
+</div>
+</div>
+<!-- Assignment Card 2 -->
+<div class="glass-card p-5 rounded-[32px] border border-white shadow-[0_8px_20px_rgba(37,99,235,0.06)] relative overflow-hidden transition-all hover:shadow-md">
+<div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-400 to-blue-200"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-blue-50 text-blue-600 rounded-full text-[10px] font-bold tracking-wider uppercase">Physics</span>
+<span class="text-caption font-caption text-outline">Grade 11-C</span>
+</div>
+<h3 class="text-callout font-callout text-on-background mt-1">Electromagnetic Waves Lab Report</h3>
+</div>
+<button class="text-outline hover:text-primary"><div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-lg hover:bg-surface-variant transition-colors">
+<span class="text-[12px] font-bold uppercase tracking-tight">Manage</span>
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</div></button>
+</div>
+<div class="flex items-center gap-4 text-footnote font-footnote text-on-surface-variant mb-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Due: Oct 26, 2023</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end text-caption font-caption">
+<span class="text-on-surface-variant font-medium">25 / 28 Submitted</span>
+<span class="text-primary font-bold">89%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full w-[89%]"></div>
+</div>
+</div>
+</div>
+<!-- Assignment Card 3 -->
+<div class="glass-card p-5 rounded-[32px] border border-white shadow-[0_8px_20px_rgba(37,99,235,0.06)] relative overflow-hidden transition-all hover:shadow-md">
+<div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-purple-400 to-purple-200"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-purple-50 text-purple-600 rounded-full text-[10px] font-bold tracking-wider uppercase">Literature</span>
+<span class="text-caption font-caption text-outline">Grade 10-A</span>
+</div>
+<h3 class="text-callout font-callout text-on-background mt-1">Analysis of Modern Poetry</h3>
+</div>
+<button class="text-outline hover:text-primary"><div class="flex items-center gap-1 bg-surface-container-low px-2 py-1 rounded-lg hover:bg-surface-variant transition-colors">
+<span class="text-[12px] font-bold uppercase tracking-tight">Manage</span>
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</div></button>
+</div>
+<div class="flex items-center gap-4 text-footnote font-footnote text-on-surface-variant mb-4">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+<span>Due: Oct 28, 2023</span>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-end text-caption font-caption">
+<span class="text-on-surface-variant font-medium">5 / 30 Submitted</span>
+<span class="text-primary font-bold">16%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full w-[16%]"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-6 bottom-24 bg-primary-container text-white p-4 rounded-2xl shadow-[0_6px_12px_rgba(37,99,235,0.3)] flex items-center gap-2 active:scale-95 duration-150 group z-40 px-6">
+<span class="material-symbols-outlined" data-weight="fill">add</span>
+<span class="font-subhead text-subhead">Create New</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-6 py-2 flex justify-between items-center z-50 shadow-none">
+<a class="flex flex-col items-center gap-1 px-4 py-1 text-emerald-600 transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">grid_view</span>
+<span class="text-[11px] font-semibold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 px-4 py-1 text-on-surface-variant hover:text-emerald-600 transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-[11px] font-medium">Schedule</span>
+</a>
+<a class="flex flex-col items-center gap-1 px-4 py-1 text-on-surface-variant hover:text-emerald-600 transition-colors" href="#">
+<span class="material-symbols-outlined">chat</span>
+<span class="text-[11px] font-medium">Chat</span>
+</a>
+<a class="flex flex-col items-center gap-1 px-4 py-1 text-on-surface-variant hover:text-emerald-600 transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[11px] font-medium">Profile</span>
+</a>
+</nav>
+</body></html>
