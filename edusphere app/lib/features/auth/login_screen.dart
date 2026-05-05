@@ -1,6 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../../core/providers/auth_provider.dart';
 import '../../shared/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,7 +13,52 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _handleLogin() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter both email and password'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
+    final authProvider = context.read<AuthProvider>();
+    final success = await authProvider.login(email, password);
+
+    if (success && mounted) {
+      final role = authProvider.user?['role'];
+      if (role == 'TEACHER') {
+        context.go('/teacher-dashboard');
+      } else if (role == 'STUDENT') {
+        context.go('/teacher-dashboard'); // Fallback for now
+      } else {
+        context.go('/teacher-dashboard');
+      }
+    } else if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(authProvider.error ?? 'Login failed. Please check your credentials.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 300,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0x0D8455EF), // secondary-container / 5%
+                color: Color(0x0D8455EF),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
@@ -44,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 250,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0x0D2563EB), // primary-container / 5%
+                color: Color(0x0D2563EB),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
@@ -53,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           
-          // Hero Image Area (Asymmetric Background Element)
+          // Hero Image Area
           Positioned(
             top: 0,
             left: 0,
@@ -61,7 +108,6 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 353,
             child: Stack(
               children: [
-                // Image
                 Opacity(
                   opacity: 0.3,
                   child: Image.network(
@@ -72,7 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     colorBlendMode: BlendMode.overlay,
                   ),
                 ),
-                // Gradient Overlay
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -97,7 +142,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Header Section
                     const Text(
                       'EduSphere',
                       style: TextStyle(
@@ -154,7 +198,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Email Input
                               const Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                                 child: Text(
@@ -163,44 +206,28 @@ class _LoginScreenState extends State<LoginScreen> {
                                     fontSize: 11,
                                     fontWeight: FontWeight.w700,
                                     color: Color(0xFF434655),
-                                    letterSpacing: 0.06 * 11, // 0.06em
+                                    letterSpacing: 1.5,
                                   ),
                                 ),
                               ),
-                              const CustomTextField(
+                              CustomTextField(
                                 hintText: 'name@edusphere.com',
                                 icon: Icons.mail_outline,
                                 keyboardType: TextInputType.emailAddress,
+                                controller: _emailController,
                               ),
                               const SizedBox(height: 24),
 
-                              // Password Input
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'PASSWORD',
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w700,
-                                        color: Color(0xFF434655),
-                                        letterSpacing: 0.06 * 11,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: const Text(
-                                        'Forgot Password?',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w500,
-                                          color: Color(0xFF004AC6),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                                child: Text(
+                                  'PASSWORD',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF434655),
+                                    letterSpacing: 1.5,
+                                  ),
                                 ),
                               ),
                               CustomTextField(
@@ -208,6 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 icon: Icons.lock_outline,
                                 obscureText: _obscurePassword,
                                 isPassword: true,
+                                controller: _passwordController,
                                 onVisibilityToggle: () {
                                   setState(() {
                                     _obscurePassword = !_obscurePassword;
@@ -217,51 +245,64 @@ class _LoginScreenState extends State<LoginScreen> {
                               const SizedBox(height: 32),
 
                               // Login Button
-                              Container(
-                                width: double.infinity,
-                                height: 56,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
-                                  gradient: const LinearGradient(
-                                    colors: [Color(0xFF004AC6), Color(0xFF2563EB)],
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: const Color(0xFF004AC6).withValues(alpha: 0.2),
-                                      blurRadius: 16,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    onTap: () {
-                                      context.go('/teacher-dashboard');
-                                    },
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: const Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Login',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white,
-                                            letterSpacing: -0.3,
-                                          ),
-                                        ),
-                                        SizedBox(width: 8),
-                                        Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.white,
-                                          size: 20,
+                              Consumer<AuthProvider>(
+                                builder: (context, auth, _) {
+                                  return Container(
+                                    width: double.infinity,
+                                    height: 56,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      gradient: const LinearGradient(
+                                        colors: [Color(0xFF004AC6), Color(0xFF2563EB)],
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: const Color(0xFF004AC6).withValues(alpha: 0.2),
+                                          blurRadius: 16,
+                                          offset: const Offset(0, 4),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ),
+                                    child: Material(
+                                      color: Colors.transparent,
+                                      child: InkWell(
+                                        onTap: auth.isLoading ? null : _handleLogin,
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Center(
+                                          child: auth.isLoading
+                                              ? const SizedBox(
+                                                  height: 24,
+                                                  width: 24,
+                                                  child: CircularProgressIndicator(
+                                                    color: Colors.white,
+                                                    strokeWidth: 2.5,
+                                                  ),
+                                                )
+                                              : const Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Login',
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: Colors.white,
+                                                        letterSpacing: -0.3,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 8),
+                                                    Icon(
+                                                      Icons.arrow_forward,
+                                                      color: Colors.white,
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
                             ],
                           ),

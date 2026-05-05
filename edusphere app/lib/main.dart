@@ -11,7 +11,19 @@ import 'features/dashboard/quiz_published_screen.dart';
 import 'features/dashboard/grade_book_screen.dart';
 import 'features/dashboard/create_assignment_screen.dart';
 
-void main() => runApp(const EduSphereApp());
+import 'package:provider/provider.dart';
+import 'core/providers/auth_provider.dart';
+import 'core/providers/assignment_provider.dart';
+
+void main() => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => AuthProvider()),
+          ChangeNotifierProvider(create: (_) => AssignmentProvider()),
+        ],
+        child: const EduSphereApp(),
+      ),
+    );
 
 class EduSphereApp extends StatelessWidget {
   const EduSphereApp({super.key});
